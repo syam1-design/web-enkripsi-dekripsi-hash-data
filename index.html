@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Enkripsi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Alat Enkripsi & Dekripsi</h1>
+
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="caesar-tab" data-bs-toggle="tab" data-bs-target="#caesar"
+                    type="button" role="tab" aria-controls="caesar" aria-selected="true">Caesar Cipher</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="vigenere-tab" data-bs-toggle="tab" data-bs-target="#vigenere"
+                    type="button" role="tab" aria-controls="vigenere" aria-selected="false">Vigenère Cipher</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="aes-tab" data-bs-toggle="tab" data-bs-target="#aes" type="button"
+                    role="tab" aria-controls="aes" aria-selected="false">AES</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="rsa-tab" data-bs-toggle="tab" data-bs-target="#rsa" type="button"
+                    role="tab" aria-controls="rsa" aria-selected="false">RSA</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="sha256-tab" data-bs-toggle="tab" data-bs-target="#sha256"
+                    type="button" role="tab" aria-controls="sha256" aria-selected="false">SHA-256</button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="caesar" role="tabpanel" aria-labelledby="caesar-tab">
+                <h2 class="mt-4">Caesar Cipher</h2>
+                <div class="mb-3">
+                    <label for="inputText" class="form-label">Teks Biasa (Plaintext)</label>
+                    <textarea class="form-control" id="inputText" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="encryptShift" class="form-label">Pergeseran Enkripsi</label>
+                    <input type="number" class="form-control" id="encryptShift" value="3">
+                </div>
+                <div class="mb-3">
+                    <label for="cipherText" class="form-label">Teks Terenkripsi (Ciphertext)</label>
+                    <textarea class="form-control" id="cipherText" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="decryptShift" class="form-label">Pergeseran Dekripsi</label>
+                    <input type="number" class="form-control" id="decryptShift" value="3">
+                </div>
+                <div class="mb-3">
+                    <label for="resultText" class="form-label">Teks Hasil Dekripsi</label>
+                    <textarea class="form-control" id="resultText" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="vigenere" role="tabpanel" aria-labelledby="vigenere-tab">
+                <h2 class="mt-4">Vigenère Cipher</h2>
+                <div class="mb-3">
+                    <label for="vigenereInputText" class="form-label">Teks Biasa (Plaintext)</label>
+                    <textarea class="form-control" id="vigenereInputText" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="vigenereKey" class="form-label">Kata Kunci Enkripsi</label>
+                    <input type="text" class="form-control" id="vigenereKey">
+                </div>
+                <div class="mb-3">
+                    <label for="vigenereCipherText" class="form-label">Teks Terenkripsi (Ciphertext)</label>
+                    <textarea class="form-control" id="vigenereCipherText" rows="3"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="vigenereDecryptKey" class="form-label">Kata Kunci Dekripsi</label>
+                    <input type="text" class="form-control" id="vigenereDecryptKey">
+                </div>
+                <div class="mb-3">
+                    <label for="vigenereResultText" class="form-label">Teks Hasil Dekripsi</label>
+                    <textarea class="form-control" id="vigenereResultText" rows="3"></textarea>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="aes" role="tabpanel" aria-labelledby="aes-tab">
+                <h2 class="mt-4">AES</h2>
+                <div class="card p-3 mb-3">
+                    <h5>Enkripsi</h5>
+                    <div class="mb-3">
+                        <label for="plaintext" class="form-label">Teks Biasa</label>
+                        <textarea class="form-control" id="plaintext" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn btn-primary" id="generateKeyIv">Buat Kunci & IV</button>
+                    </div>
+                    <div class="mb-3">
+                        <label for="key" class="form-label">Kunci (128-bit)</label>
+                        <input type="text" class="form-control" id="key" readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="iv" class="form-label">IV (Vektor Inisialisasi)</label>
+                        <input type="text" class="form-control" id="iv" readonly>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" id="encrypt">Enkripsi</button>
+                    </div>
+                    <div class="mt-3">
+                        <label for="ciphertext" class="form-label">Teks Terenkripsi</label>
+                        <textarea class="form-control" id="ciphertext" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="card p-3">
+                    <h5>Dekripsi</h5>
+                    <div class="mb-3">
+                        <label for="inputKey" class="form-label">Kunci</label>
+                        <input type="text" class="form-control" id="inputKey">
+                    </div>
+                    <div class="mb-3">
+                        <label for="inputIv" class="form-label">IV</label>
+                        <input type="text" class="form-control" id="inputIv">
+                    </div>
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn btn-secondary" id="pasteKey">Tempel Kunci & IV</button>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger" id="decrypt">Dekripsi</button>
+                    </div>
+                    <div class="mt-3">
+                        <label for="decryptedtext" class="form-label">Teks Hasil Dekripsi</label>
+                        <textarea class="form-control" id="decryptedtext" rows="3"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="rsa" role="tabpanel" aria-labelledby="rsa-tab">
+                <h2 class="mt-4">RSA</h2>
+                <div class="card p-3 mb-3">
+                    <h5>Buat Kunci RSA</h5>
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn btn-primary" onclick="generateKeys()">Buat Kunci</button>
+                    </div>
+                    <div class="mb-3">
+                        <label for="publicKey" class="form-label">Kunci Publik</label>
+                        <textarea class="form-control" id="publicKey" rows="5" readonly></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="privateKey" class="form-label">Kunci Pribadi</label>
+                        <textarea class="form-control" id="privateKey" rows="5" readonly></textarea>
+                    </div>
+                </div>
+                <div class="card p-3 mb-3">
+                    <h5>Enkripsi dengan Kunci Publik</h5>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Pesan</label>
+                        <textarea class="form-control" id="message" rows="3"></textarea>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-success" onclick="encryptMessage()">Enkripsi</button>
+                    </div>
+                    <div class="mt-3">
+                        <label for="encryptedMessage" class="form-label">Pesan Terenkripsi</label>
+                        <textarea class="form-control" id="encryptedMessage" rows="3" readonly></textarea>
+                    </div>
+                </div>
+                <div class="card p-3">
+                    <h5>Dekripsi dengan Kunci Pribadi</h5>
+                    <div class="mb-3">
+                        <label for="privateKeyInput" class="form-label">Tempel Kunci Pribadi</label>
+                        <textarea class="form-control" id="privateKeyInput" rows="5"></textarea>
+                    </div>
+                    <div class="d-grid gap-2 mb-3">
+                        <button class="btn btn-secondary" onclick="pasteKeys()">Tempel Kunci Pribadi</button>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-danger" onclick="decryptMessage()">Dekripsi</button>
+                    </div>
+                    <div class="mt-3">
+                        <label for="decryptedMessage" class="form-label">Pesan Hasil Dekripsi</label>
+                        <textarea class="form-control" id="decryptedMessage" rows="3" readonly></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="sha256" role="tabpanel" aria-labelledby="sha256-tab">
+                <h2 class="mt-4">SHA-256 Hashing</h2>
+                <div class="mb-3">
+                    <label for="hashInputText" class="form-label">Teks untuk di-Hash</label>
+                    <textarea class="form-control" id="hashInputText" rows="3"></textarea>
+                </div>
+                <div class="d-grid gap-2 mb-3">
+                    <button class="btn btn-info" id="hashBtn">Hash</button>
+                </div>
+                <div class="mb-3">
+                    <label for="hashOutputText" class="form-label">Hasil Hash</label>
+                    <textarea class="form-control" id="hashOutputText" rows="3" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="aes" role="tabpanel" aria-labelledby="aes-tab">
+    <h2 class="mt-4">AES</h2>
+    <div class="card p-3 mb-3">
+        <h5>Enkripsi</h5>
+        <div class="mb-3">
+            <label for="plaintext" class="form-label">Teks Biasa</label>
+            <textarea class="form-control" id="plaintext" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="keySize" class="form-label">Ukuran Kunci</label>
+            <select class="form-select" id="keySize">
+                <option value="128">128-bit (16 byte)</option>
+                <option value="256" selected>256-bit (32 byte)</option>
+            </select>
+        </div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-primary" id="generateKeyIv">Buat Kunci & IV</button>
+        </div>
+        <div class="mb-3">
+            <label for="key" class="form-label">Kunci</label>
+            <input type="text" class="form-control" id="key" readonly>
+        </div>
+        <div class="mb-3">
+            <label for="iv" class="form-label">IV (Vektor Inisialisasi)</label>
+            <input type="text" class="form-control" id="iv" readonly>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-success" id="encrypt">Enkripsi</button>
+        </div>
+        <div class="mt-3">
+            <label for="ciphertext" class="form-label">Teks Terenkripsi</label>
+            <textarea class="form-control" id="ciphertext" rows="3"></textarea>
+        </div>
+    </div>
+    <div class="card p-3">
+        <h5>Dekripsi</h5>
+        <div class="mb-3">
+            <label for="inputKey" class="form-label">Kunci</label>
+            <input type="text" class="form-control" id="inputKey">
+        </div>
+        <div class="mb-3">
+            <label for="inputIv" class="form-label">IV</label>
+            <input type="text" class="form-control" id="inputIv">
+        </div>
+        <div class="d-grid gap-2 mb-3">
+            <button class="btn btn-secondary" id="pasteKey">Tempel Kunci & IV</button>
+        </div>
+        <div class="d-grid gap-2">
+            <button class="btn btn-danger" id="decrypt">Dekripsi</button>
+        </div>
+        <div class="mt-3">
+            <label for="decryptedtext" class="form-label">Teks Hasil Dekripsi</label>
+            <textarea class="form-control" id="decryptedtext" rows="3"></textarea>
+        </div>
+    </div>
+</div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/forge/1.3.1/forge.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
